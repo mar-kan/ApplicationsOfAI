@@ -1,5 +1,6 @@
 
 
+
 Landing page:
 
 
@@ -27,9 +28,7 @@ The user inputs the required data, submits the form, and the backend processes t
 
 Here is a demo of the application. The values are pre-filled (since the form is quite long). The whole form is shown, as well as an example of a categorical variable (overtime) that is used as a select with a dropdown with all its options from the CV and a random numerical output represented with numerical inputs (monthly income). After clicking calculate, the result is shown in the bottom of the page, along with the probability percentage. The page automatically scrolls into view of the result.
 
-<video width="100%" controls>
-  <source src="media/demo.webm?raw=true" type="video/webm">
-</video>
+[App Demo](https://github.com/user-attachments/assets/2faeccbe-f054-40d4-9f2a-7bc8bd9d25de)
 
 ---
 
