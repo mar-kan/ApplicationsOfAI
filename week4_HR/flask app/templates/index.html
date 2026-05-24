@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HR Attrition Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b1220;
+            --card-bg: #0f1724;
+            --muted: #94a3b8;
+            --accent: #7c3aed;
+            --accent-2: #06b6d4;
+        }
+        body { background-color: var(--bg); color: #e6eef8; }
+        .card { border-radius: 12px; border: none; background: var(--card-bg); color: #e6eef8; }
+        .card-header { background: linear-gradient(90deg, var(--accent), var(--accent-2)); color: white; border-radius: 12px 12px 0 0 !important; }
+        label { color: var(--muted); }
+        .form-control, .form-select { background: #0b1228; color: #cbd5e1; border: 1px solid #172033; transition: all 0.2s ease; }
+        .form-control:focus, .form-select:focus { background: #0f1e35; color: #e6eef8; border-color: var(--accent); box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.25); }
+        .form-control::placeholder { color: #64748b; }
+        .form-control:not(:placeholder-shown), .form-select { color: #e0e7ff; }
+        .btn-predict { width: 100%; font-size: 1.05rem; font-weight: 600; border-radius: 8px; background: var(--accent); border: none; }
+        .btn-predict:hover { background: var(--accent-2); }
+        .alert { border-radius: 8px; }
+        .card-body { padding: 2rem; }
+    </style>
+</head>
+
+
+<body>
+
+<div class="container mt-5 mb-5" style="max-width: 850px;">
+    
+    <div class="card shadow-lg">
+        <div class="card-header text-center py-3">
+            <h3 class="mb-0">Employee Attrition Predictor</h3>
+        </div>
+        
+        <div class="card-body p-4 p-md-5">
+            <form method="POST">
+                
+                <div class="row">
+                    {% for parent_name, config in ui_groups.items() %}
+                        
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-secondary">{{ config.display_name }}</label>
+
+                            {% if config.is_categorical %}
+                                <select class="form-select" name="{{ parent_name }}" required>
+                                    <option value="" disabled selected>Select {{ config.display_name }}</option>
+                                    {% for option in config.options %}
+                                        <option value="{{ option }}">{{ option }}</option>
+                                    {% endfor %}
+                                </select>
+                            {% else %}
+                                <input type="number" step="any" name="{{ parent_name }}" class="form-control" required>
+                            {% endif %}
+                        </div>
+                        
+                    {% endfor %}
+                </div> <div class="mt-4">
+                    <button type="submit" class="btn btn-primary btn-predict py-2 shadow-sm">
+                        Calculate Prediction
+                    </button>
+                </div>
+            </form>
+
+            {% if prediction %}
+                <hr class="mt-5 mb-4">
+                
+                <div id="prediction-result" class="alert {% if prediction == 'High risk' %}alert-danger{% else %}alert-success{% endif %} text-center shadow-sm">
+                    <h4 class="mb-1">Result: <strong>{{ prediction }}</strong></h4>
+                    {% if probability is not none %}
+                        <p class="mb-0 mt-2">Probability: <strong>{{ probability }}%</strong></p>
+                    {% endif %}
+                </div>
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// scroll prediction into view when present
+document.addEventListener('DOMContentLoaded', function() {
+    const result = document.getElementById('prediction-result');
+    if (result) {
+        // small timeout to allow layout to settle
+        setTimeout(() => {
+            result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            result.classList.add('shadow-lg');
+        }, 150);
+    }
+});
+</script>
+</body>
+</html>
