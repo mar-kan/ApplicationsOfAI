@@ -30,8 +30,10 @@ Here is a demo of the application. The values are pre-filled (since the form is 
 
 [App Demo](https://github.com/user-attachments/assets/2faeccbe-f054-40d4-9f2a-7bc8bd9d25de)
 
+*Note:* If the video failed to be embedded in the log, clicking on the link will stream it directly from my github.
+
 ---
 
 ## 4. Result Observations & Analysis
 
-During testing and interaction with the web application, a distinct pattern emerged regarding the model's predictions. The model tends to predict low predictions. In order to get a prediction with a "High Risk" result (i.e. with a high probability of attrition), I had to lower all satisfaction levels to 1. Even with medium satisfaction values, the model tended to give quite low probabilies (less than 20%), while with satisfaction values 2, it only went as high as ~45%.
+During testing and interaction with the web application, a distinct pattern emerged regarding the model's predictions. The model seems to be quite conservative, tending to predicting low probabilities. In order to get a prediction with a "High Risk" result (i.e. with a high probability of attrition), I had to lower all satisfaction levels to 1. Even with medium satisfaction values, the model tended to give quite low probabilies (less than 20%), while with satisfaction values 2, it only went as high as ~45%.
