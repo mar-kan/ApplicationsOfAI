@@ -27,6 +27,8 @@ class MLP(nn.Module):
             self.optimizer = optim.Adam(self.parameters(), lr=lr, weight_decay=wd)
         elif optimizer_name == "AdamW":
             self.optimizer = optim.AdamW(self.parameters(), lr=lr, weight_decay=wd)
+        elif optimizer_name == "RMSprop":
+            self.optimizer = optim.RMSprop(self.parameters(), lr=lr, weight_decay=wd)
 
         # early stopping
         self.patience = 3
